@@ -4,6 +4,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      * {
+        margin-left: 13px;
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <!-- ------------------------MIN SIDE------------------------ -->
+
+    <input id="minLimit" type="range" min="0" max="100" step="1" />
+    <button onclick="addMinLimit()">Seç</button>
+    <input type="text" id="min" disabled /> <br />
+    <!-- ------------------------MAX SIDE------------------------ -->
+    <input id="maxLimit" type="range" min="0" max="100" step="1" />
+    <button onclick="addMaxLimit()">Seç</button>
+    <input type="text" id="max" disabled /> <br />
+    <!-- --------------------------RESULT-------------------------- -->
+    <button onclick="generate()">Üret</button>
+    <hr />
+    <text>Rastgele Sayı:</text><text id="result"></text>
+  </body>
+  <script>
+    let maxLimit, minLimit;
+    function addMinLimit() {
+      minLimit = document.getElementById("minLimit").value;
+      document.getElementById("min").value = minLimit;
+    }
+
+    function addMaxLimit() {
+      maxLimit = document.getElementById("maxLimit").value;
+      document.getElementById("max").value = maxLimit;
+    }
+
+    //     function generate() {
+    //       let a = maxLimit - minLimit + 1;
+
+    //       let result = Math.floor(Math.random() * a + minLimit);
+
+    //   = result;
+    //     }
+
+    function generate() {
+      let result = Math.floor(
+        Math.random() * (maxLimit - minLimit + 1) + minLimit
+      );
+      if (result < minLimit || result >= maxLimit) {
+        addMaxLimit();
+        addMinLimit();
+        generate();
+      } else {
+        document.getElementById("result").innerText = result;
+      }
+    }
+  </script>
 </html>
